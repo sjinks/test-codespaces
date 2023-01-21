@@ -2,19 +2,14 @@ version: '3'
 
 services:
   devtools:
-    image: 'ghcr.io/automattic/vip-container-images/dev-tools:0.9'
+    image: ghcr.io/automattic/vip-container-images/dev-tools:0.9
     volumes:
       - devtools:/dev-tools
 
   nginx:
-    build:
-      context: ./.docker/nginx
-      dockerfile: Dockerfile
-    environment:
-      - HOST_UID=${HOST_UID-1000}
-      - HOST_GID=${HOST_GID-1000}
+    image: ghcr.io/automattic/vip-container-images/nginx:1.23.3
     ports:
-      - 80
+      - 127.0.0.1::80
     volumes:
       - wp-wordpress:/wp
       - ../:/wp/wp-content
