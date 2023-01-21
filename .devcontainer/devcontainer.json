@@ -1,10 +1,6 @@
 {
     "name": "WordPress",
     "dockerComposeFile": "docker-compose.yml",
-    "service": "wordpress",
-    "appPort": 8080,
-    "forwardPorts": [3306],
-    "extensions": [
-        "ms-azuretools.vscode-docker"
-    ]
+    "service": "nginx",
+    "initializeCommand": "echo \"HOST_UID=$(id -u)\nHOST_GID=$(id -g)\" > .devcontainer/.env; env >> .devcontainer/.env"
 }

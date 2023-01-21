@@ -1,20 +1,26 @@
 version: '3'
+
 services:
-  wordpress:
-    image: wordpress:latest
+  devtools:
+    image: 'ghcr.io/automattic/vip-container-images/dev-tools:0.9'
+    volumes:
+      - devtools:/dev-tools
+
+  nginx:
+    build:
+      context: ./.docker/nginx
+      dockerfile: Dockerfile
+    environment:
+      - HOST_UID=${HOST_UID-1000}
+      - HOST_GID=${HOST_GID-1000}
     ports:
-      - 8080:80
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: example
-      WORDPRESS_DB_PASSWORD: example
-      WORDPRESS_DB_NAME: example
-    links:
-      - db:mysql
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_DATABASE: example
-      MYSQL_USER: example
-      MYSQL_PASSWORD: example
-      MYSQL_ROOT_PASSWORD: example
+      - 80
+    volumes:
+      - wp-wordpress:/wp
+      - ../:/wp/wp-content
+      - wp-uploads:/wp/wp-content/uploads
+
+volumes:
+  devtools:
+  wp-wordpress:
+  wp-uploads:
