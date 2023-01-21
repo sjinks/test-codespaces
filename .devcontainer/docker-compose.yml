@@ -21,7 +21,22 @@ services:
       - wp-uploads:/wp/wp-content/uploads
 
   php:
-    image: ghcr.io/automattic/vip-container-images/php-fpm:8.0
+    build:
+      context: ./.docker/php-fpm
+      dockerfile: Dockerfile
+    environment:
+      - HOST_UID=${HOST_UID-1000}
+      - HOST_GID=${HOST_GID-1000}
+    working_dir: /wp
+    volumes:
+      - type: volume
+        source: devtools
+        target: /dev-tools
+        volume:
+          nocopy: true
+      - wp-wordpress:/wp
+      - ../:/wp/wp-content
+      - wp-uploads:/wp/wp-content/uploads
 
 volumes:
   devtools:
