@@ -3,5 +3,12 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "nginx",
     "forwardPorts": ["nginx:80"],
-    "initializeCommand": "echo \"HOST_UID=$(id -u)\nHOST_GID=$(id -g)\" > .devcontainer/.env"
+    "portsAttributes": {
+        "nginx:80": {
+            "label": "Application",
+            "onAutoForward": "notify"
+        }
+    },
+    "initializeCommand": "echo \"HOST_UID=$(id -u)\nHOST_GID=$(id -g)\" > .devcontainer/.env",
+    "workspaceFolder": "/wp/wp-content"
 }
