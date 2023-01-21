@@ -1,4 +1,4 @@
-FROM ghcr.io/automattic/vip-container-images/nginx:1.23.2
+FROM ghcr.io/automattic/vip-container-images/nginx:1.23.3
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 

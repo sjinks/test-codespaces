@@ -20,6 +20,9 @@ services:
       - ../:/wp/wp-content
       - wp-uploads:/wp/wp-content/uploads
 
+  php:
+    image: ghcr.io/automattic/vip-container-images/php-fpm:8.0
+
 volumes:
   devtools:
   wp-wordpress:
