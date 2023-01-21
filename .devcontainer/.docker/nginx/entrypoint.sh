@@ -10,5 +10,4 @@ if [ -n "${HOST_UID}" ] && [ -n "${HOST_GID}" ]; then
     fi
 fi
 
-echo "Listening on http://127.0.0.1:80"
 exec /docker-entrypoint.sh nginx -g "daemon off;"
