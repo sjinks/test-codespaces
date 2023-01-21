@@ -28,6 +28,8 @@ services:
       - HOST_UID=${HOST_UID-1000}
       - HOST_GID=${HOST_GID-1000}
     working_dir: /wp
+    ports:
+      - 9000
     volumes:
       - type: volume
         source: devtools
