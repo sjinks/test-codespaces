@@ -2,7 +2,7 @@
     "name": "WordPress",
     "dockerComposeFile": "docker-compose.yml",
     "service": "php",
-    "forwardPorts": ["nginx:80"],
+    "forwardPorts": ["nginx:80", "php:9000"],
     "portsAttributes": {
         "nginx:80": {
             "label": "Application",
