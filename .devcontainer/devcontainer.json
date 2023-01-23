@@ -1,8 +1,6 @@
 {
     "name": "Codespace for Local Development Environment",
     "dockerComposeFile": "docker-compose.yml",
-    "overrideCommand": false,
-    "userEnvProbe": "none",
     "service": "php",
     "forwardPorts": ["nginx:80"],
     "portsAttributes": {
@@ -29,25 +27,25 @@
         "MULTISITE": ""
     },
     "initializeCommand": "echo \"HOST_UID=$(id -u)\nHOST_GID=$(id -g)\" > .devcontainer/.env",
-    "updateContentCommand": {
-        "composer": "composer install --no-interaction"
-    },
-    "postCreateCommand": {
-        "install": ["/bin/sh", "-x", "/dev-tools/setup.sh", "database", "root", "http://test.vipdev.lndo.site/", "Test"]
-    },
-    "workspaceFolder": "/wp/wp-content",
-    "remoteUser": "www-data",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "dlech.chmod",
-                "dbaeumer.vscode-eslint",
-                "bmewburn.vscode-intelephense-client",
-                "wongjn.php-sniffer",
-                "esbenp.prettier-vscode",
-                "MehediDracula.php-namespace-resolver",
-                "johnbillion.vscode-wordpress-hooks"
-            ]
-        }
-    }
+    // "updateContentCommand": {
+    //     "composer": "composer install --no-interaction"
+    // },
+    // "postCreateCommand": {
+    //     "install": ["/bin/sh", "-x", "/dev-tools/setup.sh", "database", "root", "http://test.vipdev.lndo.site/", "Test"]
+    // },
+    "workspaceFolder": "/wp/wp-content"
+    // "remoteUser": "www-data",
+//     "customizations": {
+//         "vscode": {
+//             "extensions": [
+//                 "dlech.chmod",
+//                 "dbaeumer.vscode-eslint",
+//                 "bmewburn.vscode-intelephense-client",
+//                 "wongjn.php-sniffer",
+//                 "esbenp.prettier-vscode",
+//                 "MehediDracula.php-namespace-resolver",
+//                 "johnbillion.vscode-wordpress-hooks"
+//             ]
+//         }
+//     }
 }

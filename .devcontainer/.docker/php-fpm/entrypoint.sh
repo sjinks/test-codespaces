@@ -14,10 +14,6 @@ fi
 
 chown www-data:www-data /wp/wp-content/mu-plugins /wp/config /wp/log /wp/wp-content/uploads /wp
 
-# if [ -z "${MULTISITE}" ]; then
-#     su-exec www-data:www-data /bin/sh /dev-tools/setup.sh database root "http://test.vipdev.lndo.site/" "Test"
-# else
-#     su-exec www-data:www-data /bin/sh /dev-tools/setup.sh database root "http://test.vipdev.lndo.site/" "Test" test.vipdev.lndo.site
-# fi
+su-exec www-data:www-data /bin/sh /dev-tools/setup.sh database root "http://test.vipdev.lndo.site/" "Test"
 
 exec /usr/local/bin/docker-php-entrypoint /usr/local/bin/run.sh
