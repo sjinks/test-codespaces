@@ -1,6 +1,5 @@
-FROM ghcr.io/automattic/vip-container-images/nginx:1.23.3
+FROM ghcr.io/automattic/vip-container-images/nginx:1.23.2
 
-RUN apk add --no-cache git
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
