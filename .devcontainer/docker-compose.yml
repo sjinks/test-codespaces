@@ -4,24 +4,24 @@ services:
     volumes:
       - devtools:/dev-tools
 
-  nginx:
-    build:
-      context: ./.docker/nginx
-      dockerfile: Dockerfile
-    environment:
-      - HOST_UID=${HOST_UID-1000}
-      - HOST_GID=${HOST_GID-1000}
-    ports:
-      - 8080:80
-    volumes:
-      - wp-wordpress:/wp
-      - ../:/wp/wp-content
-      - wp-uploads:/wp/wp-content/uploads
-      - type: volume
-        source: mu-plugins
-        target: /wp/wp-content/mu-plugins
-        volume:
-          nocopy: true
+  # nginx:
+  #   build:
+  #     context: ./.docker/nginx
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - HOST_UID=${HOST_UID-1000}
+  #     - HOST_GID=${HOST_GID-1000}
+  #   ports:
+  #     - 8080:80
+  #   volumes:
+  #     - wp-wordpress:/wp
+  #     - ../:/wp/wp-content
+  #     - wp-uploads:/wp/wp-content/uploads
+  #     - type: volume
+  #       source: mu-plugins
+  #       target: /wp/wp-content/mu-plugins
+  #       volume:
+  #         nocopy: true
 
   php:
     build:
@@ -52,6 +52,9 @@ services:
       - memcached
       - database
       # - elasticsearch
+    ports:
+      - 8080:80
+    init: true
 
   database:
     image: 'mariadb:10.3'
