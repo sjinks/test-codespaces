@@ -4,32 +4,10 @@ services:
     volumes:
       - devtools:/dev-tools
 
-  # nginx:
-  #   build:
-  #     context: ./.docker/nginx
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - HOST_UID=${HOST_UID-1000}
-  #     - HOST_GID=${HOST_GID-1000}
-  #   ports:
-  #     - 8080:80
-  #   volumes:
-  #     - wp-wordpress:/wp
-  #     - ../:/wp/wp-content
-  #     - wp-uploads:/wp/wp-content/uploads
-  #     - type: volume
-  #       source: mu-plugins
-  #       target: /wp/wp-content/mu-plugins
-  #       volume:
-  #         nocopy: true
-
   php:
     build:
       context: ./.docker/php-fpm
       dockerfile: Dockerfile
-    environment:
-      - HOST_UID=${HOST_UID-1000}
-      - HOST_GID=${HOST_GID-1000}
     working_dir: /wp
     volumes:
       - type: volume
@@ -47,11 +25,6 @@ services:
         target: /wp/wp-content/mu-plugins
         volume:
           nocopy: true
-    links:
-      - mailhog
-      - memcached
-      - database
-      # - elasticsearch
     ports:
       - 80
     init: true
@@ -62,8 +35,6 @@ services:
       docker-entrypoint.sh mysqld
       --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
       --max_allowed_packet=67M
-    ports:
-      - '127.0.0.1::3306'
     environment:
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'true'
     volumes:
@@ -86,9 +57,6 @@ services:
     build:
       context: ./.docker/mu-plugins
       dockerfile: Dockerfile
-    environment:
-      - HOST_UID=${HOST_UID-1000}
-      - HOST_GID=${HOST_GID-1000}
     volumes:
       - 'mu-plugins:/shared'
 
