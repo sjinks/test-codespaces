@@ -2,9 +2,9 @@
     "name": "Codespace for Local Development Environment",
     "dockerComposeFile": "docker-compose.yml",
     "service": "php",
-    "forwardPorts": [8080, 8081, 8082],
+    "forwardPorts": [80, 8081, 8082],
     "portsAttributes": {
-        "8080": {
+        "80": {
             "label": "Application"
         },
         "8081": {
@@ -13,9 +13,8 @@
         "8082": {
             "label": "MailHog"
         },
-        "php:9000": {
+        "9000": {
             "label": "PHP-FPM",
-            "onAutoForward": "ignore"
         }
     },
     "containerEnv": {
@@ -34,7 +33,7 @@
         "install": "/usr/local/bin/setup.sh"
     },
     "workspaceFolder": "/wp/wp-content",
-    "remoteUser": "www-data",
+    "remoteUser": "root",
     "extensions": [
         "dlech.chmod",
         "dbaeumer.vscode-eslint",
