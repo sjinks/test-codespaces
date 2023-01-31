@@ -6,7 +6,7 @@ services:
 
   php:
     build:
-      context: ./.docker/php-fpm
+      context: ./.docker/nginx-php
       dockerfile: Dockerfile
     working_dir: /wp
     volumes:
