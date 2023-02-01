@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 RUN \
     echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk add --no-cache runit nginx ca-certificates curl tar xz openssl less bash mariadb-client su-exec shadow git jq icu-data-full php8 php8-fpm php8-pear \
+    apk add --no-cache runit nginx ca-certificates curl tar xz openssl less bash memcached mariadb mariadb-client su-exec shadow git jq icu-data-full php8 php8-fpm php8-pear \
         php8-pecl-apcu \
         php8-bcmath \
         php8-calendar \
@@ -52,6 +52,7 @@ RUN \
 RUN ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm
 
 RUN adduser -u 82 -D -S -G www-data www-data
+RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 RUN \
     wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod 0755 /usr/local/bin/wp && \
