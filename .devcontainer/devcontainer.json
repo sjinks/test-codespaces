@@ -5,19 +5,13 @@
         "context": ".docker/nginx-php"
     },
     "overrideCommand": false,
+    "appPort": [80],
     "forwardPorts": [80],
     "portsAttributes": {
         "80": {
-            "label": "Application"
-        },
-        "8081": {
-            "label": "phpMyAdmin"
-        },
-        "8082": {
-            "label": "MailHog"
-        },
-        "9000": {
-            "label": "PHP-FPM"
+            "label": "Application",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
         }
     },
     "containerEnv": {
@@ -29,9 +23,10 @@
         "MULTISITE": ""
     },
     "postCreateCommand": {
+        "env": "env | sort",
+        "debug": "ls -lha /workspaces/${localWorkspaceFolderBasename} || true",
         "install": "/usr/local/bin/setup.sh"
     },
-    "workspaceFolder": "/wp/wp-content",
     "remoteUser": "root",
     "extensions": [
         "dlech.chmod",

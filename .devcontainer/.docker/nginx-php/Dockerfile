@@ -73,7 +73,5 @@ RUN \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
     touch /wp/wp-content/mu-plugins/000-vip-init.php
 
-EXPOSE 80 8080
-VOLUME [ "/wp" ]
-
-CMD ["/sbin/runsvdir", "/etc/sv"]
+EXPOSE 80
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
