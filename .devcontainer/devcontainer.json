@@ -22,11 +22,6 @@
         "ENABLE_MAILHOG": "true",
         "MULTISITE": ""
     },
-    "postCreateCommand": {
-        "env": "env | sort",
-        "debug": "ls -lha /workspaces/${localWorkspaceFolderBasename} || true",
-        "install": "/usr/local/bin/setup.sh"
-    },
     "remoteUser": "root",
     "extensions": [
         "dlech.chmod",
