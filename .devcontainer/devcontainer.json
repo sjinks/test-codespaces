@@ -4,6 +4,7 @@
         "dockerfile": ".docker/nginx-php/Dockerfile",
         "context": ".docker/nginx-php"
     },
+    "overrideCommand": false,
     "forwardPorts": [80],
     "portsAttributes": {
         "80": {
