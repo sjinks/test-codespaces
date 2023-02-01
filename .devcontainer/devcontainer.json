@@ -2,7 +2,7 @@
     "name": "Codespace for Local Development Environment",
     "build": {
         "dockerfile": ".docker/nginx-php/Dockerfile",
-        "context": ".."
+        "context": ".docker/nginx-php"
     },
     "forwardPorts": [80],
     "portsAttributes": {
