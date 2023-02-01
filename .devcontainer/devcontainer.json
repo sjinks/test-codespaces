@@ -22,6 +22,9 @@
         "ENABLE_MAILHOG": "true",
         "MULTISITE": ""
     },
+    "postStartCommand": {
+        "install": "/usr/local/bin/setup.sh"
+    },
     "remoteUser": "root",
     "extensions": [
         "dlech.chmod",
