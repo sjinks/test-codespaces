@@ -60,6 +60,12 @@ RUN \
 
 ADD root/ /
 
+RUN \
+    cd /tmp && \
+    git clone --depth=1 https://github.com/Automattic/vip-container-images.git && \
+    cp -aR vip-container-images/dev-tools / && \
+    rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images
+
 ENV WP_CLI_CONFIG_PATH /config/wp-cli.yaml
 ENV WP_CLI_ALLOW_ROOT 1
 

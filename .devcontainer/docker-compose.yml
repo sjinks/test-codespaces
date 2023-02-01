@@ -1,8 +1,8 @@
 services:
-  devtools:
-    image: 'ghcr.io/automattic/vip-container-images/dev-tools:latest'
-    volumes:
-      - devtools:/dev-tools
+  # devtools:
+  #   image: 'ghcr.io/automattic/vip-container-images/dev-tools:latest'
+  #   volumes:
+  #     - devtools:/dev-tools
 
   php:
     build:
@@ -10,11 +10,6 @@ services:
       dockerfile: Dockerfile
     working_dir: /wp
     volumes:
-      - type: volume
-        source: devtools
-        target: /dev-tools
-        volume:
-          nocopy: true
       - wp-wordpress:/wp
       - wp-config:/wp/config
       - wp-log:/wp/log
@@ -26,8 +21,7 @@ services:
         volume:
           nocopy: true
     ports:
-      - 80
-      - 8080
+      - '80:80'
     networks:
       - default
 
@@ -71,30 +65,29 @@ services:
   #   volumes:
   #     - 'search_data:/usr/share/elasticsearch/data'
 
-  phpmyadmin:
-    image: 'phpmyadmin/phpmyadmin:latest'
-    environment:
-      MYSQL_ROOT_PASSWORD: ''
-      PMA_HOSTS: database
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: ''
-      UPLOAD_LIMIT: '4G'
-    ports:
-      - 8081:80
+  # phpmyadmin:
+  #   image: 'phpmyadmin/phpmyadmin:latest'
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ''
+  #     PMA_HOSTS: database
+  #     PMA_PORT: 3306
+  #     PMA_USER: root
+  #     PMA_PASSWORD: ''
+  #     UPLOAD_LIMIT: '4G'
+  #   ports:
+  #     - 8081:80
 
-  mailhog:
-    image: 'mailhog/mailhog:v1.0.1'
-    user: root
-    environment:
-      MH_API_BIND_ADDR: ':80'
-      MH_UI_BIND_ADDR: ':80'
-    ports:
-      - 8082:80
-    command: MailHog
+  # mailhog:
+  #   image: 'mailhog/mailhog:v1.0.1'
+  #   user: root
+  #   environment:
+  #     MH_API_BIND_ADDR: ':80'
+  #     MH_UI_BIND_ADDR: ':80'
+  #   ports:
+  #     - 8082:80
+  #   command: MailHog
 
 volumes:
-  devtools:
   mu-plugins:
 
   wp-config:
