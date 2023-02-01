@@ -60,14 +60,16 @@ RUN \
 
 ADD root/ /
 
+ENV WP_CLI_CONFIG_PATH /config/wp-cli.yaml
+ENV WP_CLI_ALLOW_ROOT 1
+
 RUN \
+    wp core download --path=/wp && \
     cd /tmp && \
     git clone --depth=1 https://github.com/Automattic/vip-container-images.git && \
     cp -aR vip-container-images/dev-tools / && \
+    cp -aR vip-container-images/wordpress/extra/* /wp/ && \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images
-
-ENV WP_CLI_CONFIG_PATH /config/wp-cli.yaml
-ENV WP_CLI_ALLOW_ROOT 1
 
 EXPOSE 80 8080
 VOLUME [ "/wp" ]
