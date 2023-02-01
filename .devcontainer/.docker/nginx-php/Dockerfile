@@ -69,6 +69,7 @@ RUN \
     git clone --depth=1 https://github.com/Automattic/vip-container-images.git && \
     cp -aR vip-container-images/dev-tools / && \
     cp -aR vip-container-images/wordpress/extra/* /wp/ && \
+    sed -i 's/memcached:11211/127.0.0.1:11211/' dev-tools/wp-config.php.tpl && \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images
 
 EXPOSE 80 8080

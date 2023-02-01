@@ -26,7 +26,7 @@
         "MULTISITE": ""
     },
     "updateContentCommand": {
-        "composer": "composer install --no-interaction"
+        "composer": "cd ${CODESPACE_VSCODE_FOLDER} && composer install --no-interaction"
     },
     "postCreateCommand": {
         "install": "/usr/local/bin/setup.sh"
