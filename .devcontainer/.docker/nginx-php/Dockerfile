@@ -52,7 +52,7 @@ RUN \
 RUN ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm
 
 RUN adduser -u 82 -D -S -G www-data www-data
-RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql && /usr/bin/mysqladmin -uroot password ''
+RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 RUN \
     wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod 0755 /usr/local/bin/wp && \
