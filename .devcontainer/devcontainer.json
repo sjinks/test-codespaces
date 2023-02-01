@@ -1,7 +1,9 @@
 {
     "name": "Codespace for Local Development Environment",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "php",
+    "build": {
+        "dockerfile": "nginx-php/Dockerfile",
+        "context": ".."
+    },
     "forwardPorts": [80],
     "portsAttributes": {
         "80": {
