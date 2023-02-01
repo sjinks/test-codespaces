@@ -62,6 +62,7 @@ ADD root/ /
 
 ENV WP_CLI_CONFIG_PATH /config/wp-cli.yaml
 ENV WP_CLI_ALLOW_ROOT 1
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
 RUN \
     wp core download --path=/wp && \
@@ -74,4 +75,4 @@ RUN \
     touch /wp/wp-content/mu-plugins/000-vip-init.php
 
 EXPOSE 80
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/sbin/runsvdir", "-P", "/etc/sv"]
