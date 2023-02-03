@@ -13,10 +13,8 @@ else
 fi
 
 if [ -n "${RepositoryName}" ]; then
-    for i in client-mu-plugins images languages plugins themes; do
+    for i in client-mu-plugins images languages plugins themes vip-config; do
         rm -rf "/wp/wp-content/${i}"
         ln -sf "/workspaces/${RepositoryName}/${i}" "/wp/wp-content/${i}"
     done
-    rm -rf /wp/vip-config
-    ln -sf "/workspaces/${RepositoryName}/vip-config" /wp/vip-config
 fi
