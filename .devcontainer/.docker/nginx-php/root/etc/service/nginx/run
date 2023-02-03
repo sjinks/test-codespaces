@@ -4,6 +4,13 @@ set -eu
 
 exec 2>&1
 
+if [ -n "${WPVIP_MEDIA_REDIRECT_DOMAIN}" ]; then
+    # shellcheck disable=SC2016
+    envsubst '$WPVIP_MEDIA_REDIRECT_DOMAIN' < /etc/nginx/conf.extra/media-redirect.tpl > /etc/nginx/conf.extra/media-redirect.conf
+else
+    rm -f /etc/nginx/conf.extra/media-redirect.conf
+fi
+
 COMMAND=/usr/sbin/nginx
 PID_FILE=/run/nginx/nginx.pid
 

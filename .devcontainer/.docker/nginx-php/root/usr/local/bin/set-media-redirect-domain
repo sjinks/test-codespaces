@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 url"
+    exit 1
+fi
+
+if [ -z "$1" ]; then
+    WPVIP_MEDIA_REDIRECT_DOMAIN="$1"
+    export WPVIP_MEDIA_REDIRECT_DOMAIN
+    # shellcheck disable=SC2016
+    envsubst '$WPVIP_MEDIA_REDIRECT_DOMAIN' < /etc/nginx/conf.extra/media-redirect.tpl > /etc/nginx/conf.extra/media-redirect.conf
+    /usr/sbin/nginx -s reload
+    echo "Media redirect configured"
+else
+    rm -f /etc/nginx/conf.extra/media-redirect.conf
+    /usr/sbin/nginx -s reload
+    echo "Media redirect disabled"
+fi

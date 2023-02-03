@@ -1,15 +1,16 @@
 #!/bin/sh
 
-set -x
-env | sort
-
 if [ -n "${CODESPACE_NAME}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}" ]; then
     DOMAIN="${CODESPACE_NAME}-80.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
 else
     DOMAIN="localhost"
 fi
 
-/dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}/" "WordPress VIP Development Site"
+if [ -z "${WPVIP_MULTISITE}" ]; then
+    /dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}/" "WordPress VIP Development Site"
+else
+    /dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}/" "WordPress VIP Development Site" "${DOMAIN}"
+fi
 
 if [ -n "${RepositoryName}" ]; then
     for i in client-mu-plugins images languages plugins themes; do

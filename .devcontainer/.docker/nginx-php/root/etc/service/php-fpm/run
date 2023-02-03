@@ -3,6 +3,12 @@
 set -eu
 exec 2>&1
 
+if [ -n "${WPVIP_XDEBUG_ENABLE}" ]; then
+    cp "${PHP_INI_DIR}/conf.d/xdebug.ini.template" "${PHP_INI_DIR}/conf.d/xdebug.ini" || true
+else
+    rm -f "${PHP_INI_DIR}/conf.d/xdebug.ini" || true
+fi
+
 DAEMON=/usr/sbin/php-fpm
 
 exec ${DAEMON} --nodaemonize

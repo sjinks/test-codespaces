@@ -1,0 +1,7 @@
+#!/bin/sh
+
+MODE="${1:-"debug,coverage"}"
+
+sed "s/^xdebug.mode.*$/xdebug.mode = ${MODE}/" < "${PHP_INI_DIR}/conf.d/xdebug.ini.template" > "${PHP_INI_DIR}/conf.d/xdebug.ini" 
+sv restart php-fpm
+echo "XDebug enabled"

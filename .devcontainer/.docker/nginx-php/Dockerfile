@@ -70,6 +70,7 @@ ADD root/ /
 ENV WP_CLI_CONFIG_PATH /etc/wp-cli/wp-cli.yaml
 ENV WP_CLI_ALLOW_ROOT 1
 ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV PHP_INI_DIR /etc/php8
 
 RUN \
     wp core download --path=/wp && \

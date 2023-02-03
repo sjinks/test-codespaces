@@ -26,6 +26,10 @@
             "onAutoForward": "notify",
             "elevateIfNeeded": true
         },
+        "1025": {
+            "label": "MailHog SMTP",
+            "onAutoForward": "ignore"
+        },
         "3306": {
             "label": "MySQL",
             "onAutoForward": "ignore"
@@ -34,6 +38,11 @@
             "label": "php-fpm",
             "onAutoForward": "ignore"
         }
+    },
+    "containerEnv": {
+        "WPVIP_XDEBUG_ENABLE": "",        // set to a non-empty string to enable
+        "WPVIP_MULTISITE": "",            // set to a non-empty string for WPMU install
+        "WPVIP_MEDIA_REDIRECT_DOMAIN": "" // set to a non-empty string to set a media redirect domain
     },
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",
