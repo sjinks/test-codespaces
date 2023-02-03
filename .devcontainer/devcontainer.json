@@ -8,21 +8,22 @@
     // "service": "php",
     // "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "overrideCommand": false,
+    "userEnvProbe": "none",
     "forwardPorts": [80],
     "portsAttributes": {
         "80": {
             "label": "Application",
             "onAutoForward": "notify",
             "elevateIfNeeded": true
+        },
+        "3306": {
+            "label": "MySQL",
+            "onAutoForward": "ignore"
+        },
+        "9000": {
+            "label": "php-fpm",
+            "onAutoForward": "ignore"
         }
-    },
-    "containerEnv": {
-        "XDEBUG": "disable"
-    },
-    "remoteEnv": {
-        "ENABLE_ELASTICSEARCH": "",
-        "ENABLE_MAILHOG": "true",
-        "MULTISITE": ""
     },
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",

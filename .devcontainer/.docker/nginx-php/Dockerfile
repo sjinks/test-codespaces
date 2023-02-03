@@ -76,7 +76,7 @@ RUN \
     cp -aR vip-container-images/wordpress/extra/* /wp/ && \
     sed -i 's/memcached:11211/127.0.0.1:11211/' /dev-tools/wp-config.php.tpl && \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
-    rm -f /wp/wp-content/mu-plugins/.nodelete && \
+    rm -rf /wp/wp-content/mu-plugins/.nodelete && \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
     rm -rf /wp/wp-content/mu-plugins/.git
 
