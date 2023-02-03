@@ -40,9 +40,9 @@
         }
     },
     "containerEnv": {
-        "WPVIP_XDEBUG_ENABLE": "",        // set to a non-empty string to enable
-        "WPVIP_MULTISITE": "",            // set to a non-empty string for WPMU install
-        "WPVIP_MEDIA_REDIRECT_DOMAIN": "" // set to a non-empty string to set a media redirect domain
+        "WPVIP_XDEBUG_ENABLE": "",        // set to a non-empty value for `xdebug.mode` to enable
+        "WPVIP_MULTISITE": "",            // set to a non-empty value for WPMU install
+        "WPVIP_MEDIA_REDIRECT_DOMAIN": "" // set to a non-empty value to set a media redirect domain
     },
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",

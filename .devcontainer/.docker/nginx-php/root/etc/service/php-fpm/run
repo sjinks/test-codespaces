@@ -4,7 +4,7 @@ set -eu
 exec 2>&1
 
 if [ -n "${WPVIP_XDEBUG_ENABLE}" ]; then
-    cp "${PHP_INI_DIR}/conf.d/xdebug.ini.template" "${PHP_INI_DIR}/conf.d/xdebug.ini" || true
+    sed "s/^xdebug\\.mode.*\$/xdebug.mode = ${WPVIP_XDEBUG_ENABLE}/" "${PHP_INI_DIR}/conf.d/xdebug.ini.template" > "${PHP_INI_DIR}/conf.d/xdebug.ini" || true
 else
     rm -f "${PHP_INI_DIR}/conf.d/xdebug.ini" || true
 fi

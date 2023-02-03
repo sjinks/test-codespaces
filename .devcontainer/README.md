@@ -9,7 +9,7 @@ https://docs.wpvip.com/how-tos/local-development/
 You may need to rebuild your codespace. All changes to the database will be lost.
 
 The following settings in `devcontainer.json` (`containerEnv` veriable) affect the configuration of the Codespace:
-  * `WPVIP_XDEBUG_ENABLE`: set to a non-empty value to enable XDebug (`xdebug.mode` will be set to `debug,coverage`);
+  * `WPVIP_XDEBUG_ENABLE`: set to a non-empty value of `xdebug.mode` to enable XDebug (for example, `debug,coverage`);
   * `WPVIP_MULTISITE`: set to a non-empty value if you want a multi-site WordPress;
   * `WPVIP_MEDIA_REDIRECT_DOMAIN`: set to an URL to use in redirects for missing media files. This can be used to still have images without the need to import them locally.
 
