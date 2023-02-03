@@ -82,7 +82,8 @@ RUN \
     rm -rf /wp/wp-content/mu-plugins/.nodelete && \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
     rm -rf /wp/wp-content/mu-plugins/.git && \
-    install -d -m 0777 -o www-data -g www-data /usr/share/webapps/phpmyadmin/tmp
+    install -d -m 0777 -o www-data -g www-data /usr/share/webapps/phpmyadmin/tmp && \
+    chmod 0664 /etc/phpmyadmin/config.inc.php
 
 RUN npm i -g @automattic/vip
 
