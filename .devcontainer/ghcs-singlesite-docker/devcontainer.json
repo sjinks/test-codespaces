@@ -1,0 +1,66 @@
+{
+    "name": "Codespace for Local Development Environment (GitHub, Single site, Single Container App)",
+    "build": {
+        "dockerfile": "../.docker/single-container-app/Dockerfile",
+        "context": "../.docker/single-container-app"
+    },
+    "overrideCommand": false,
+    "userEnvProbe": "none",
+    "forwardPorts": [80, 81, 8025],
+    "portsAttributes": {
+        "80": {
+            "label": "Application",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
+        },
+        "81": {
+            "label": "phpMyAdmin",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
+        },
+        "8025": {
+            "label": "MailHog",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
+        },
+        "1025": {
+            "label": "MailHog SMTP",
+            "onAutoForward": "ignore"
+        },
+        "3306": {
+            "label": "MySQL",
+            "onAutoForward": "ignore"
+        },
+        "9000": {
+            "label": "php-fpm",
+            "onAutoForward": "ignore"
+        }
+    },
+    "containerEnv": {
+        "WPVIP_XDEBUG_ENABLE": "",        // set to a non-empty value for `xdebug.mode` to enable
+        "WPVIP_MULTISITE": "",            // set to a non-empty value for WPMU install
+        "WPVIP_MEDIA_REDIRECT_DOMAIN": "" // set to a non-empty value to set a media redirect domain
+    },
+    "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
+    "postCreateCommand": "/usr/local/bin/setup.sh",
+    "remoteUser": "root",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dlech.chmod",
+                "dbaeumer.vscode-eslint",
+                "bmewburn.vscode-intelephense-client",
+                "wongjn.php-sniffer",
+                "esbenp.prettier-vscode",
+                "MehediDracula.php-namespace-resolver",
+                "johnbillion.vscode-wordpress-hooks"
+            ]
+        },
+        "codespaces": {
+            "openFiles": [
+                ".devcontainer/ghcs-singlesite-docker/README.md",
+                "README.md"
+            ]
+        }
+    }
+}

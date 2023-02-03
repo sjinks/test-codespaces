@@ -1,12 +1,9 @@
 {
-    "name": "Codespace for Local Development Environment",
+    "name": "Codespace for Local Development Environment (GitHub, Mutisite, Single Container App)",
     "build": {
-        "dockerfile": ".docker/nginx-php/Dockerfile",
-        "context": ".docker/nginx-php"
+        "dockerfile": "../.docker/single-container-app/Dockerfile",
+        "context": "../.docker/single-container-app"
     },
-    // "dockerComposeFile": "docker-compose.yml",
-    // "service": "php",
-    // "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "overrideCommand": false,
     "userEnvProbe": "none",
     "forwardPorts": [80, 81, 8025],
@@ -41,7 +38,7 @@
     },
     "containerEnv": {
         "WPVIP_XDEBUG_ENABLE": "",        // set to a non-empty value for `xdebug.mode` to enable
-        "WPVIP_MULTISITE": "",            // set to a non-empty value for WPMU install
+        "WPVIP_MULTISITE": "true",        // set to a non-empty value for WPMU install
         "WPVIP_MEDIA_REDIRECT_DOMAIN": "" // set to a non-empty value to set a media redirect domain
     },
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
@@ -61,7 +58,7 @@
         },
         "codespaces": {
             "openFiles": [
-                ".devcontainer/README.md",
+                ".devcontainer/ghcs-multisite-docker/README.md",
                 "README.md"
             ]
         }
