@@ -2,7 +2,9 @@ FROM alpine:3.16
 
 RUN \
     echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk add --no-cache runit nginx ca-certificates curl tar xz openssl less bash memcached mariadb mariadb-client su-exec shadow git jq icu-data-full php8 php8-fpm php8-pear \
+    apk add --no-cache runit nginx ca-certificates curl tar xz openssl less bash memcached su-exec git jq icu-data-full \
+        mariadb mariadb-client \
+        php8 php8-fpm php8-pear \
         php8-pecl-apcu \
         php8-bcmath \
         php8-calendar \
@@ -47,12 +49,13 @@ RUN \
         php8-xml \
         php8-xmlreader \
         php8-xmlwriter \
-        php8-zip
+        php8-zip \
+        nodejs npm
 
 RUN ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm
 
 RUN adduser -u 82 -D -S -G www-data www-data
-RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
+RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
 
 RUN \
     wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod 0755 /usr/local/bin/wp && \
@@ -60,7 +63,7 @@ RUN \
 
 ADD root/ /
 
-ENV WP_CLI_CONFIG_PATH /config/wp-cli.yaml
+ENV WP_CLI_CONFIG_PATH /etc/wp-cli/wp-cli.yaml
 ENV WP_CLI_ALLOW_ROOT 1
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
@@ -72,7 +75,11 @@ RUN \
     cp -aR vip-container-images/wordpress/extra/* /wp/ && \
     sed -i 's/memcached:11211/127.0.0.1:11211/' /dev-tools/wp-config.php.tpl && \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
-    touch /wp/wp-content/mu-plugins/000-vip-init.php
+    rm -f /wp/wp-content/mu-plugins/.nodelete && \
+    git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
+    rm -rf /wp/wp-content/mu-plugins/.git
+
+RUN npm i -g @automattic/vip
 
 EXPOSE 80
-ENTRYPOINT ["/sbin/runsvdir", "-P", "/etc/sv"]
+ENTRYPOINT ["/sbin/runsvdir", "-P", "/etc/service"]

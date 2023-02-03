@@ -1,12 +1,12 @@
 {
     "name": "Codespace for Local Development Environment",
-    // "build": {
-    //     "dockerfile": ".docker/nginx-php/Dockerfile",
-    //     "context": ".docker/nginx-php"
-    // },
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "php",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "build": {
+        "dockerfile": ".docker/nginx-php/Dockerfile",
+        "context": ".docker/nginx-php"
+    },
+    // "dockerComposeFile": "docker-compose.yml",
+    // "service": "php",
+    // "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "overrideCommand": false,
     "forwardPorts": [80],
     "portsAttributes": {
@@ -27,13 +27,17 @@
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",
     "remoteUser": "root",
-    "extensions": [
-        "dlech.chmod",
-        "dbaeumer.vscode-eslint",
-        "bmewburn.vscode-intelephense-client",
-        "wongjn.php-sniffer",
-        "esbenp.prettier-vscode",
-        "MehediDracula.php-namespace-resolver",
-        "johnbillion.vscode-wordpress-hooks"
-    ]
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dlech.chmod",
+                "dbaeumer.vscode-eslint",
+                "bmewburn.vscode-intelephense-client",
+                "wongjn.php-sniffer",
+                "esbenp.prettier-vscode",
+                "MehediDracula.php-namespace-resolver",
+                "johnbillion.vscode-wordpress-hooks"
+            ]
+        }
+    }
 }
