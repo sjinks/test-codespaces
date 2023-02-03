@@ -58,6 +58,12 @@
                 "MehediDracula.php-namespace-resolver",
                 "johnbillion.vscode-wordpress-hooks"
             ]
+        },
+        "codespaces": {
+            "openFiles": [
+                ".devcontainer/README.md",
+                "README.md"
+            ]
         }
     }
 }
