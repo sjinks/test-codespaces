@@ -63,6 +63,8 @@ RUN \
     wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod 0755 /usr/local/bin/wp && \
     wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/bin/ --filename=composer
 
+RUN wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64 -O /usr/local/bin/mailhog && chmod 0755 /usr/local/bin/mailhog
+
 ADD root/ /
 
 ENV WP_CLI_CONFIG_PATH /etc/wp-cli/wp-cli.yaml
@@ -79,7 +81,8 @@ RUN \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
     rm -rf /wp/wp-content/mu-plugins/.nodelete && \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
-    rm -rf /wp/wp-content/mu-plugins/.git
+    rm -rf /wp/wp-content/mu-plugins/.git && \
+    install -d -m 0777 -o www-data -g www-data /usr/share/webapps/phpmyadmin/tmp
 
 RUN npm i -g @automattic/vip
 

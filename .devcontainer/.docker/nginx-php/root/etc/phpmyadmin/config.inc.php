@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+$cfg['blowfish_secret'] = '';
+
 $i = 0;
 
 $i++;
@@ -13,4 +15,3 @@ $cfg['Servers'][$i]['only_db'] = 'wordpress';
 
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
-$cfg['TempDir'] = '/tmp';
