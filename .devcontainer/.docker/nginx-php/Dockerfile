@@ -51,7 +51,8 @@ RUN \
         php8-xmlwriter \
         php8-zip \
         nodejs npm \
-        github-cli
+        github-cli \
+        phpmyadmin
 
 RUN ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm
 
@@ -78,7 +79,8 @@ RUN \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
     rm -rf /wp/wp-content/mu-plugins/.nodelete && \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
-    rm -rf /wp/wp-content/mu-plugins/.git
+    rm -rf /wp/wp-content/mu-plugins/.git && \
+    mkdir -p /wp/_/ && ln -sf /usr/share/webapps/phpmyadmin /wp/_/phpmyadmin
 
 RUN npm i -g @automattic/vip
 
