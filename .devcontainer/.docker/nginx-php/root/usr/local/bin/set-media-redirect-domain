@@ -5,7 +5,7 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-if [ -z "$1" ]; then
+if [ -n "$1" ]; then
     WPVIP_MEDIA_REDIRECT_DOMAIN="$1"
     export WPVIP_MEDIA_REDIRECT_DOMAIN
     # shellcheck disable=SC2016
