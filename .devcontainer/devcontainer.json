@@ -9,10 +9,15 @@
     // "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "overrideCommand": false,
     "userEnvProbe": "none",
-    "forwardPorts": [80],
+    "forwardPorts": [80, 81],
     "portsAttributes": {
         "80": {
             "label": "Application",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
+        },
+        "81": {
+            "label": "phpMyAdmin",
             "onAutoForward": "notify",
             "elevateIfNeeded": true
         },

@@ -79,8 +79,7 @@ RUN \
     rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
     rm -rf /wp/wp-content/mu-plugins/.nodelete && \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
-    rm -rf /wp/wp-content/mu-plugins/.git && \
-    mkdir -p /wp/_/ && ln -sf /usr/share/webapps/phpmyadmin /wp/_/phpmyadmin
+    rm -rf /wp/wp-content/mu-plugins/.git
 
 RUN npm i -g @automattic/vip
 

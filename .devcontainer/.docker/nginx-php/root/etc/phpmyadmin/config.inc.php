@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-$i = 1;
+$i = 0;
 
-++$i;
+$i++;
+/* Server parameters */
+$cfg['Servers'][$i]['host'] = 'localhost';
 $cfg['Servers'][$i]['auth_type'] = 'config';
 $cfg['Servers'][$i]['user'] = 'wordpress';
 $cfg['Servers'][$i]['password'] = 'wordpress';
@@ -11,3 +13,4 @@ $cfg['Servers'][$i]['only_db'] = 'wordpress';
 
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+$cfg['TempDir'] = '/tmp';
