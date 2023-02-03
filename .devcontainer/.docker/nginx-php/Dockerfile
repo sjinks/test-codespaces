@@ -50,7 +50,8 @@ RUN \
         php8-xmlreader \
         php8-xmlwriter \
         php8-zip \
-        nodejs npm
+        nodejs npm \
+        github-cli
 
 RUN ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm
 
