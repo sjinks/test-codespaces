@@ -52,18 +52,14 @@ RUN \
         php8-zip \
         nodejs npm \
         github-cli \
-        phpmyadmin
+        phpmyadmin \
+        sudo
 
-RUN ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm
-
-RUN adduser -u 82 -D -S -G www-data www-data
-RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
-
+# System
 RUN \
-    wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod 0755 /usr/local/bin/wp && \
-    wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/bin/ --filename=composer
-
-RUN wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64 -O /usr/local/bin/mailhog && chmod 0755 /usr/local/bin/mailhog
+    adduser -D -G www-data -s /bin/bash www-data && \
+    echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data && \
+    chmod 0440 /etc/sudoers.d/www-data
 
 ADD root/ /
 
@@ -72,21 +68,46 @@ ENV WP_CLI_ALLOW_ROOT 1
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV PHP_INI_DIR /etc/php8
 
+# nginx
+RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
+
+# PHP
 RUN \
-    wp core download --path=/wp && \
-    cd /tmp && \
-    git clone --depth=1 https://github.com/Automattic/vip-container-images.git && \
-    cp -aR vip-container-images/dev-tools / && \
-    cp -aR vip-container-images/wordpress/extra/* /wp/ && \
-    sed -i 's/memcached:11211/127.0.0.1:11211/' /dev-tools/wp-config.php.tpl && \
-    rm -rf /dev-tools/Dockerfile /dev-tools/scripts /tmp/vip-container-images && \
-    rm -rf /wp/wp-content/mu-plugins/.nodelete && \
+    ln -s /usr/sbin/php-fpm8 /usr/sbin/php-fpm && \
+    wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/bin/ --filename=composer
+
+# WP-CLI
+RUN wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod 0755 /usr/local/bin/wp
+
+# WordPress
+RUN wp core download --path=/wp --skip-content
+
+# VIP Go mu-plugins
+RUN \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
     rm -rf /wp/wp-content/mu-plugins/.git && \
+    cp /dev-tools/dev-env-plugin.php /wp/wp-content/mu-plugins/
+
+# phpMyAdmin
+RUN \
     install -d -m 0777 -o www-data -g www-data /usr/share/webapps/phpmyadmin/tmp && \
     chmod 0664 /etc/phpmyadmin/config.inc.php
 
+# MailHog
+RUN \
+    if [ "$(arch)" = "arm64" ]; then \
+        wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_arm -O /usr/local/bin/mailhog && chmod 0755 /usr/local/bin/mailhog; \
+    else \
+        wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64 -O /usr/local/bin/mailhog && chmod 0755 /usr/local/bin/mailhog; \
+    fi
+
+# MariaDB
+RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
+
+# VIP CLI
 RUN npm i -g @automattic/vip
 
+WORKDIR /wp
+VOLUME ["/wp/wp-content/uploads", "/var/lib/mysql"]
 EXPOSE 80
 ENTRYPOINT ["/sbin/runsvdir", "-P", "/etc/service"]

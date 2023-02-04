@@ -3,7 +3,7 @@
 if [ -n "${CODESPACE_NAME}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}" ]; then
     DOMAIN="${CODESPACE_NAME}-80.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
 else
-    DOMAIN="localhost"
+    DOMAIN="${WPVIP_DOMAIN_OVERRIDE:-localhost}"
 fi
 
 if [ -z "${WPVIP_MULTISITE}" ]; then

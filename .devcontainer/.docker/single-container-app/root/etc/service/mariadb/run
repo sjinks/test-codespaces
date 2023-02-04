@@ -2,4 +2,9 @@
 
 set -eu
 exec 2>&1
+
+# /var/lib/mysql can be a volume
+chmod 2755 /var/lib/mysql
+chown mysql:mysql /var/lib/mysql
+
 exec /usr/bin/mysqld_safe --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION --max_allowed_packet=67M --skip_networking=0 --bind-address=127.0.0.1

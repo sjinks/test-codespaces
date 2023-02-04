@@ -1,11 +1,10 @@
 {
-    "name": "Default Codespace for Local Development Environment (GitHub, Single site, Single Container App)",
+    "name": "Default Codespace for Local Development Environment",
     "build": {
         "dockerfile": ".docker/single-container-app/Dockerfile",
         "context": ".docker/single-container-app"
     },
     "overrideCommand": false,
-    "userEnvProbe": "none",
     "forwardPorts": [80, 81, 8025],
     "portsAttributes": {
         "80": {
@@ -37,13 +36,57 @@
         }
     },
     "containerEnv": {
-        "WPVIP_XDEBUG_ENABLE": "",        // set to a non-empty value for `xdebug.mode` to enable
-        "WPVIP_MULTISITE": "",            // set to a non-empty value for WPMU install
-        "WPVIP_MEDIA_REDIRECT_DOMAIN": "" // set to a non-empty value to set a media redirect domain
+        "WPVIP_XDEBUG_ENABLE": "",         // set to a non-empty value for `xdebug.mode` to enable
+        "WPVIP_MULTISITE": "",             // set to a non-empty value for WPMU install
+        "WPVIP_MEDIA_REDIRECT_DOMAIN": "", // set to a non-empty value to set a media redirect domain
+        "WPVIP_DOMAIN_OVERRIDE": "codespace.lndo.site"
     },
+    "initializeCommand": "env > .buildenv",
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",
-    "remoteUser": "root",
+    "remoteUser": "www-data",
+    "mounts": [
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/client-mu-plugins",
+            "target": "/wp/wp-content/client-mu-plugins"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/images",
+            "target": "/wp/wp-content/images"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/languages",
+            "target": "/wp/wp-content/languages"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/plugins",
+            "target": "/wp/wp-content/plugins"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/themes",
+            "target": "/wp/wp-content/themes"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/vip-config",
+            "target": "/wp/wp-content/vip-config"
+        },
+        {
+            "type": "volume",
+            "source": "wp-uploads",
+            "target": "/wp/wp-content/uploads"
+        },
+        {
+            "type": "volume",
+            "source": "database",
+            "target": "/var/lib/mysql"
+        }
+    ],
     "customizations": {
         "vscode": {
             "extensions": [

@@ -14,5 +14,5 @@ fi
 COMMAND=/usr/sbin/nginx
 PID_FILE=/run/nginx/nginx.pid
 
-install -d -o nginx -g nginx ${PID_FILE%/*}
+install -d -o www-data -g www-data ${PID_FILE%/*}
 exec ${COMMAND} -c /etc/nginx/nginx.conf -g "pid $PID_FILE; daemon off;"
