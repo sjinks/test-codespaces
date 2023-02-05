@@ -1,7 +1,7 @@
 #!/bin/bash
 
 syntax() {
-  echo "Syntax: add-site.sh --slug=<slug> --title=\"<title>\""
+  echo "Syntax: add-site --slug=<slug> --title=\"<title>\""
   exit 1
 }
 
