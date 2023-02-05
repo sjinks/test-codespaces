@@ -55,21 +55,18 @@ RUN \
         phpmyadmin \
         sudo
 
+ENV WP_CLI_ALLOW_ROOT 1
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV PHP_INI_DIR /etc/php8
+
 # System
 RUN \
     adduser -D -G www-data -s /bin/bash www-data && \
     echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data && \
     chmod 0440 /etc/sudoers.d/www-data
 
-ADD root/ /
-
-ENV WP_CLI_CONFIG_PATH /etc/wp-cli/wp-cli.yaml
-ENV WP_CLI_ALLOW_ROOT 1
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV PHP_INI_DIR /etc/php8
-
-# nginx
-RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
+# VIP CLI
+RUN npm i -g @automattic/vip
 
 # PHP
 RUN \
@@ -85,8 +82,7 @@ RUN wp core download --path=/wp --skip-content
 # VIP Go mu-plugins
 RUN \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
-    rm -rf /wp/wp-content/mu-plugins/.git && \
-    cp /dev-tools/dev-env-plugin.php /wp/wp-content/mu-plugins/
+    rm -rf /wp/wp-content/mu-plugins/.git
 
 # phpMyAdmin
 RUN \
@@ -104,8 +100,15 @@ RUN \
 # MariaDB
 RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
 
-# VIP CLI
-RUN npm i -g @automattic/vip
+# nginx
+RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
+
+ADD root/ /
+
+ENV WP_CLI_CONFIG_PATH /etc/wp-cli/wp-cli.yaml
+
+# Dev Env Plugin
+RUN cp /dev-tools/dev-env-plugin.php /wp/wp-content/mu-plugins/
 
 WORKDIR /wp
 VOLUME ["/wp/wp-content/uploads", "/var/lib/mysql"]

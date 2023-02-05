@@ -18,30 +18,36 @@ done
 [ -z "$slug" ] && echo "ERROR: Missing or empty slug argument" && syntax
 [ -z "$title" ] && echo "ERROR: Missing or empty title argument" && syntax
 
-network_domain=$(wp --allow-root site list --field=domain | head -n1)
-
-site_domain=$slug.$network_domain
-
 echo "Checking if this is a multisite installation..."
-if ! wp --allow-root core is-installed --network; then
+if ! wp core is-installed --network; then
   echo "ERROR: Not a multisite"
   exit 1
 fi
 
-echo "Checking if $site_domain already belongs to another site..."
-if wp --allow-root --path=/wp site list --field=domain | grep -q "^$site_domain$"; then
-  echo "ERROR: site with domain $site_domain already exists"
-  exit 1
+if [ -n "${CODESPACE_NAME}" ] || [ "${WPVIP_MULTISITE_TYPE}" != 'subdomains' ]; then
+  multisite_type=subdirectories
+else
+  multisite_type=subdomains
+fi
+
+site_url=
+if [ "${multisite_type}" = 'subdomains' ]; then
+  network_domain=$(wp site list --field=domain | head -n1)
+  site_url=$slug.$network_domain
+else
+  network_domain="$(wp site list --field=domain | head -n1)"
+  site_path="$(wp site list --field=path | head -n1)"
+  site_url="${network_domain}${site_path}${slug}"
 fi
 
 echo "Creating the new site..."
-wp --allow-root --path=/wp site create --title="$title" --slug="$slug"
+wp --path=/wp site create --title="$title" --slug="$slug"
 
 echo
 echo "======================================================================"
 echo "Site '$title' added correctly"
 echo
 echo "You can access it using these URLs:"
-echo "  http://$site_domain/"
-echo "  http://$site_domain/wp-admin/"
+echo "  http://$site_url/"
+echo "  http://$site_url/wp-admin/"
 echo "======================================================================"

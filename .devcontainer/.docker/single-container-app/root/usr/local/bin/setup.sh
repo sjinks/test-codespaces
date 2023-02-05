@@ -7,9 +7,9 @@ else
 fi
 
 if [ -z "${WPVIP_MULTISITE}" ]; then
-    /dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}/" "WordPress VIP Development Site"
+    /dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}" "WordPress VIP Development Site"
 else
-    /dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}/" "WordPress VIP Development Site" "${DOMAIN}"
+    /dev-tools/setup.sh 127.0.0.1 root "http://${DOMAIN}" "WordPress VIP Development Site" "${DOMAIN}" "${WPVIP_MULTISITE_TYPE}"
 fi
 
 if [ -n "${RepositoryName}" ]; then

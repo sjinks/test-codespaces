@@ -35,9 +35,10 @@
         }
     },
     "containerEnv": {
-        "WPVIP_XDEBUG_ENABLE": "",         // set to a non-empty value for `xdebug.mode` to enable
-        "WPVIP_MULTISITE": "",             // set to a non-empty value for WPMU install
-        "WPVIP_MEDIA_REDIRECT_DOMAIN": "", // set to a non-empty value to set a media redirect domain
+        "WPVIP_XDEBUG_ENABLE": "",                                            // set to a non-empty value for `xdebug.mode` to enable
+        "WPVIP_MULTISITE": "1",                                               // set to a non-empty value for WPMU install
+        "WPVIP_MULTISITE_TYPE": "subdirectories",                             // "subdomains" or "subdirectories"
+        "WPVIP_MEDIA_REDIRECT_DOMAIN": "",                                    // set to a non-empty value to set a media redirect domain
         "WPVIP_DOMAIN_OVERRIDE": "${localWorkspaceFolderBasename}.lndo.site"
     },
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
