@@ -39,13 +39,17 @@
         "WPVIP_XDEBUG_ENABLE": "",         // set to a non-empty value for `xdebug.mode` to enable
         "WPVIP_MULTISITE": "",             // set to a non-empty value for WPMU install
         "WPVIP_MEDIA_REDIRECT_DOMAIN": "", // set to a non-empty value to set a media redirect domain
-        "WPVIP_DOMAIN_OVERRIDE": "codespace.lndo.site"
+        "WPVIP_DOMAIN_OVERRIDE": "${localWorkspaceFolderBasename}.lndo.site"
     },
-    "initializeCommand": "env > .buildenv",
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",
     "remoteUser": "www-data",
     "mounts": [
+        {
+            "type":"bind",
+            "source": "/var/run/docker.sock",
+            "target": "/var/run/docker.sock"
+        },
         {
             "type": "bind",
             "source": "${localWorkspaceFolder}/client-mu-plugins",
@@ -86,6 +90,13 @@
             "source": "database",
             "target": "/var/lib/mysql"
         }
+    ],
+    "runArgs": [
+        "-l", "traefik.enable=true",
+        "-l", "traefik.http.routers.${devcontainerId}.rule=HostRegexp(`${localWorkspaceFolderBasename}.lndo.site`, `{wildcard:[a-z0-9-]+}.${localWorkspaceFolderBasename}.lndo.site`)",
+        "-l", "traefik.http.routers.${devcontainerId}.entrypoints=http",
+        "-l", "traefik.http.routers.${devcontainerId}.service=${devcontainerId}-service",
+        "-l", "traefik.http.services.${devcontainerId}-service.loadbalancer.server.port=80"
     ],
     "customizations": {
         "vscode": {
