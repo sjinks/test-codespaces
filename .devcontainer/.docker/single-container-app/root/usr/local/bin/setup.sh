@@ -13,8 +13,12 @@ else
 fi
 
 if [ -n "${RepositoryName}" ]; then
-    for i in client-mu-plugins images languages plugins themes vip-config; do
-        rm -rf "/wp/wp-content/${i}"
-        ln -sf "/workspaces/${RepositoryName}/${i}" "/wp/wp-content/${i}"
-    done
+    base=/workspaces/${RepositoryName}
+else
+    base=$(pwd)
 fi
+
+for i in client-mu-plugins images languages plugins themes vip-config; do
+    sudo rm -rf "/wp/wp-content/${i}"
+    sudo ln -sf "${base}/${i}" "/wp/wp-content/${i}"
+done

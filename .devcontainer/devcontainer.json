@@ -46,36 +46,6 @@
     "remoteUser": "www-data",
     "mounts": [
         {
-            "type": "bind",
-            "source": "${localWorkspaceFolder}/client-mu-plugins",
-            "target": "/wp/wp-content/client-mu-plugins"
-        },
-        {
-            "type": "bind",
-            "source": "${localWorkspaceFolder}/images",
-            "target": "/wp/wp-content/images"
-        },
-        {
-            "type": "bind",
-            "source": "${localWorkspaceFolder}/languages",
-            "target": "/wp/wp-content/languages"
-        },
-        {
-            "type": "bind",
-            "source": "${localWorkspaceFolder}/plugins",
-            "target": "/wp/wp-content/plugins"
-        },
-        {
-            "type": "bind",
-            "source": "${localWorkspaceFolder}/themes",
-            "target": "/wp/wp-content/themes"
-        },
-        {
-            "type": "bind",
-            "source": "${localWorkspaceFolder}/vip-config",
-            "target": "/wp/wp-content/vip-config"
-        },
-        {
             "type": "volume",
             "source": "wp-uploads",
             "target": "/wp/wp-content/uploads"

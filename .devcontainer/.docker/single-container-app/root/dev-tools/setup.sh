@@ -32,11 +32,11 @@ curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> /wp/config/wp-config.p
 
 echo "Waiting for MySQL to come online..."
 second=0
-while ! mysqladmin ping -h "${db_host}" --silent && [ "${second}" -lt 60 ]; do
+while ! mysqladmin ping -uroot -h"${db_host}" --silent && [ "${second}" -lt 60 ]; do
   sleep 1
   second=$((second+1))
 done
-if ! mysqladmin ping -h "${db_host}" --silent; then
+if ! mysqladmin ping -uroot -h"${db_host}" --silent; then
     echo "ERROR: mysql has failed to come online"
     exit 1;
 fi
