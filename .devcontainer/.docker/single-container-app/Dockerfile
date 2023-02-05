@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 RUN \
     echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk add --no-cache runit nginx ca-certificates curl tar xz openssl less bash memcached su-exec git jq icu-data-full \
+    apk add --no-cache runit nginx gettext ca-certificates curl tar xz openssl less bash memcached su-exec git jq icu-data-full \
         mariadb mariadb-client \
         php8 php8-fpm php8-pear \
         php8-pecl-apcu \
@@ -101,7 +101,9 @@ RUN \
 RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
 
 # nginx
-RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
+RUN \
+    sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf && \
+    chown -R www-data:www-data /run/nginx /var/log/nginx
 
 ADD root/ /
 
