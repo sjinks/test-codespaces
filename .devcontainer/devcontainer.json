@@ -46,11 +46,6 @@
     "remoteUser": "www-data",
     "mounts": [
         {
-            "type":"bind",
-            "source": "/var/run/docker.sock",
-            "target": "/var/run/docker.sock"
-        },
-        {
             "type": "bind",
             "source": "${localWorkspaceFolder}/client-mu-plugins",
             "target": "/wp/wp-content/client-mu-plugins"
