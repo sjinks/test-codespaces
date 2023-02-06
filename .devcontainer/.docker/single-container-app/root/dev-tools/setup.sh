@@ -22,7 +22,7 @@ if [ -d /workspaces/uploads ]; then
     echo "/wp/wp-content/uploads does not exist or is an empty directory"
     if ! mountpoint -q /wp/wp-content/uploads; then
       echo "/wp/wp-content/uploads is not a mountpoint, restoring"
-      rm -df /wp/wp-content/uploads
+      rmdir /wp/wp-content/uploads
       ln -s /workspaces/uploads /wp/wp-content/uploads
     else
       echo "WARNING: /wp/wp-content/uploads is a mountpoint, NOT restoring"

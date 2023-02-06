@@ -9,7 +9,7 @@ if [ -d /workspaces/mysql ]; then
         echo "Found empty /var/lib/mysql directory"
         if ! mountpoint -q /var/lib/mysql; then
             echo "/var/lib/mysql is not a mountpoint, restoring"
-            rm -df /var/lib/mysql
+            rmdir /var/lib/mysql
             ln -s /workspaces/mysql /var/lib/mysql
         else
             echo "ERROR: /var/lib/mysql is a mountpoint"
