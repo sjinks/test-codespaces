@@ -57,7 +57,7 @@
         }
     },
     "containerEnv": {
-        "WPVIP_MULTISITE": "",                                                // set to a non-empty value for WPMU install
+        "WPVIP_MULTISITE": "",                                               // set to a non-empty value for WPMU install
         "WPVIP_MULTISITE_TYPE": "subdomains",                                 // "subdomains" or "subdirectories"
         "WPVIP_MEDIA_REDIRECT_DOMAIN": "",                                    // set to a non-empty value to set a media redirect domain
         "WPVIP_DOMAIN_OVERRIDE": "${localWorkspaceFolderBasename}.lndo.site"
