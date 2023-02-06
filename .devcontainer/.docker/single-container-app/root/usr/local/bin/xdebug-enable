@@ -1,7 +1,0 @@
-#!/bin/sh
-
-WPVIP_XDEBUG_ENABLE="${1:-"debug,coverage"}"
-
-echo "WPVIP_XDEBUG_ENABLE=${WPVIP_XDEBUG_ENABLE}" > /etc/conf.d/php-fpm
-sv restart php-fpm
-echo "XDebug enabled"

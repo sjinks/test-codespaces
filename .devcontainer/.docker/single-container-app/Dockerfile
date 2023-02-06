@@ -45,14 +45,11 @@ RUN \
         php8-sysvshm \
         php8-pecl-timezonedb \
         php8-tokenizer \
-        php8-pecl-xdebug \
         php8-xml \
         php8-xmlreader \
         php8-xmlwriter \
         php8-zip \
-        nodejs npm \
         github-cli \
-        phpmyadmin \
         sudo
 
 ENV WP_CLI_ALLOW_ROOT 1
@@ -64,9 +61,6 @@ RUN \
     adduser -D -G www-data -s /bin/bash www-data && \
     echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data && \
     chmod 0440 /etc/sudoers.d/www-data
-
-# VIP CLI
-RUN npm i -g @automattic/vip
 
 # PHP
 RUN \
@@ -83,19 +77,6 @@ RUN wp core download --path=/wp --skip-content
 RUN \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
     rm -rf /wp/wp-content/mu-plugins/.git
-
-# phpMyAdmin
-RUN \
-    install -d -m 0777 -o www-data -g www-data /usr/share/webapps/phpmyadmin/tmp && \
-    chmod 0664 /etc/phpmyadmin/config.inc.php
-
-# MailHog
-RUN \
-    if [ "$(arch)" = "arm64" ]; then \
-        wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_arm -O /usr/local/bin/mailhog && chmod 0755 /usr/local/bin/mailhog; \
-    else \
-        wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64 -O /usr/local/bin/mailhog && chmod 0755 /usr/local/bin/mailhog; \
-    fi
 
 # MariaDB
 RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql

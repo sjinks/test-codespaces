@@ -32,10 +32,28 @@
         "9000": {
             "label": "php-fpm",
             "onAutoForward": "ignore"
+        },
+        "9003": {
+            "label": "XDebug Client Port",
+            "onAutoForward": "notify"
+        }
+    },
+    "features": {
+        "./features/vip-cli": {
+            "enabled": true
+        },
+        "./features/mailhog": {
+            "enabled": true
+        },
+        "./features/phpmyadmin": {
+            "enabled": true
+        },
+        "./features/xdebug": {
+            "enabled": true,
+            "mode": "debug"
         }
     },
     "containerEnv": {
-        "WPVIP_XDEBUG_ENABLE": "",                                            // set to a non-empty value for `xdebug.mode` to enable
         "WPVIP_MULTISITE": "1",                                               // set to a non-empty value for WPMU install
         "WPVIP_MULTISITE_TYPE": "subdomains",                                 // "subdomains" or "subdirectories"
         "WPVIP_MEDIA_REDIRECT_DOMAIN": "",                                    // set to a non-empty value to set a media redirect domain

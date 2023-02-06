@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ -f "${PHP_INI_DIR}/conf.d/xdebug.ini" ]; then
-    echo "WPVIP_XDEBUG_ENABLE=" > /etc/conf.d/php-fpm
-    sv restart php-fpm
-    echo "XDebug disabled"
-else
-    echo "XDebug already disabled"
-fi

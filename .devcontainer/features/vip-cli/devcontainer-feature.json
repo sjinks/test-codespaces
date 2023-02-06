@@ -1,0 +1,13 @@
+{
+    "name": "VIP CLI",
+    "id": "vip-cli",
+    "version": "1.0.0",
+    "description": "Sets up VIP CLI",
+    "options": {
+        "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable VIP CLI"
+        }
+    }
+}
