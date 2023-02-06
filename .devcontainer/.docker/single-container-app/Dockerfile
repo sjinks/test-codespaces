@@ -78,9 +78,6 @@ RUN \
     git clone --depth=1 https://github.com/Automattic/vip-go-mu-plugins-built.git /wp/wp-content/mu-plugins && \
     rm -rf /wp/wp-content/mu-plugins/.git
 
-# MariaDB
-RUN /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
-
 # nginx
 RUN \
     sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf && \

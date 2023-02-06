@@ -4,13 +4,11 @@ set -eu
 exec 2>&1
 
 # /var/lib/mysql can be a volume
-chmod 2755 /var/lib/mysql
-chown mysql:mysql /var/lib/mysql
+/usr/bin/install -d -D -m 02755 -o mysql -g mysql /var/lib/mysql
+/usr/bin/install -d /run/mysqld -o mysql -g mysql
 
-if [ ! -d /run/mysqld ]; then
-    install -d /run/mysqld -o mysql -g mysql
-else
-    chown mysql:mysql /run/mysqld
+if [ ! -d /var/lib/mysql/mysql ]; then
+    /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
 fi
 
-exec su-exec mysql /usr/bin/mysqld --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION --max_allowed_packet=67M --skip_networking=0 --bind-address=127.0.0.1
+exec /sbin/su-exec mysql /usr/bin/mysqld --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION --max_allowed_packet=67M --skip_networking=0 --bind-address=127.0.0.1
