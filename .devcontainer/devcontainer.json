@@ -65,18 +65,18 @@
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",
     "remoteUser": "www-data",
-    "mounts": [
-        {
-            "type": "volume",
-            "source": "wp-uploads",
-            "target": "/wp/wp-content/uploads"
-        },
-        {
-            "type": "volume",
-            "source": "database",
-            "target": "/var/lib/mysql"
-        }
-    ],
+    // "mounts": [
+    //     {
+    //         "type": "volume",
+    //         "source": "wp-uploads",
+    //         "target": "/wp/wp-content/uploads"
+    //     },
+    //     {
+    //         "type": "volume",
+    //         "source": "database",
+    //         "target": "/var/lib/mysql"
+    //     }
+    // ],
     "runArgs": [
         "-l", "traefik.enable=true",
         "-l", "traefik.http.routers.${devcontainerId}.rule=HostRegexp(`${localWorkspaceFolderBasename}.lndo.site`, `{wildcard:[a-z0-9-]+}.${localWorkspaceFolderBasename}.lndo.site`)",

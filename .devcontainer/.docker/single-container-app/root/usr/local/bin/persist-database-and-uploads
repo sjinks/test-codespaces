@@ -10,6 +10,16 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+if mountpoint -q /var/lib/mysql; then
+    echo "/var/lib/mysql is a mountpoint, aborting"
+    exit 1
+fi
+
+if mountpoint -q /wp/wp-content/uploads; then
+    echo "/wp/wp-content/uploads is a mountpoint, aborting"
+    exit 1
+fi
+
 printf "The script needs to take your database offline. Do you want to continue? (y/n) "
 read -r choice
 case "${choice}" in 
