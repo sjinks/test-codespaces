@@ -27,6 +27,8 @@ if [ -d /workspaces/uploads ]; then
     else
       echo "WARNING: /wp/wp-content/uploads is a mountpoint, NOT restoring"
     fi
+  elif [ -h /wp/wp-content/uploads ]; then
+    echo "OK, /wp/wp-content/uploads is a symlink"
   else
     echo "WARNING: /wp/wp-content/uploads is not empty or not a directory"
     exit 1
