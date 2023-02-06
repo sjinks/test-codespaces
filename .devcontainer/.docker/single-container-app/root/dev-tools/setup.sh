@@ -33,6 +33,8 @@ if [ -d /workspaces/uploads ]; then
   fi
 elif [ -d /wp/wp-content/uploads ]; then
   sudo chown www-data:www-data /wp/wp-content/uploads
+else
+  install -d -o www-data -g www-data /wp/wp-content/uploads
 fi
 
 sudo chown www-data:www-data /wp/config
