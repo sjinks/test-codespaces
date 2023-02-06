@@ -40,19 +40,19 @@
     },
     "features": {
         "./features/memcached": {
-            "enabled": false
+            "enabled": true
         },
         "./features/vip-cli": {
-            "enabled": false
+            "enabled": true
         },
         "./features/mailhog": {
-            "enabled": false
+            "enabled": true
         },
         "./features/phpmyadmin": {
-            "enabled": false
+            "enabled": true
         },
         "./features/xdebug": {
-            "enabled": false,
+            "enabled": true,
             "mode": "debug"
         }
     },
