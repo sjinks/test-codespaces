@@ -15,8 +15,28 @@ if mountpoint -q /var/lib/mysql; then
     exit 1
 fi
 
+if [ -h /var/lib/mysql ]; then
+    echo "/var/lib/mysql is a symlink, aborting"
+    exit 1
+fi
+
+if [ -e /workspaces/mysql ]; then
+    echo "/workspaces/mysql already exists, aborting"
+    exit 1
+fi
+
 if mountpoint -q /wp/wp-content/uploads; then
     echo "/wp/wp-content/uploads is a mountpoint, aborting"
+    exit 1
+fi
+
+if [ -h /wp/wp-content/uploads ]; then
+    echo "/wp/wp-content/uploads is a symlink, aborting"
+    exit 1
+fi
+
+if [ -e /workspaces/uploads ]; then
+    echo "/workspaces/uploads already exists, aborting"
     exit 1
 fi
 
