@@ -12,6 +12,7 @@ if [ -d /workspaces/mysql ]; then
             rmdir /var/lib/mysql
             ln -s /workspaces/mysql /var/lib/mysql
             /usr/bin/install -d -m 02755 -o mysql -g mysql /workspaces/mysql
+            chown -R mysql:mysql /workspaces/mysql
         else
             echo "ERROR: /var/lib/mysql is a mountpoint"
             exit 1
