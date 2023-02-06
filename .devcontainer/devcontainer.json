@@ -39,6 +39,9 @@
         }
     },
     "features": {
+        "./features/memcached": {
+            "enabled": true
+        },
         "./features/vip-cli": {
             "enabled": true
         },

@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 RUN \
     echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk add --no-cache runit nginx gettext ca-certificates curl tar xz openssl less bash memcached su-exec git jq icu-data-full \
+    apk add --no-cache runit nginx gettext ca-certificates curl tar xz openssl less bash su-exec git jq icu-data-full \
         mariadb mariadb-client \
         php8 php8-fpm php8-pear \
         php8-pecl-apcu \
@@ -22,8 +22,6 @@ RUN \
         php8-json \
         php8-mbstring \
         php8-pecl-mcrypt \
-        php8-pecl-memcache \
-        php8-pecl-memcached \
         php8-mysqli \
         php8-mysqlnd \
         php8-opcache \

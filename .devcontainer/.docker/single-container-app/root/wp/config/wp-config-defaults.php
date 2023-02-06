@@ -121,7 +121,7 @@ if ( file_exists( ABSPATH . '/wp-content/vip-config/vip-config.php' ) ) {
  */
 if ( ! defined( 'VIP_ELASTICSEARCH_ENDPOINTS' ) ) {
 	define( 'VIP_ELASTICSEARCH_ENDPOINTS', [
-		'http://elasticsearch:9200',
+		'http://127.0.0.1:9200',
 	] );
 }
 
