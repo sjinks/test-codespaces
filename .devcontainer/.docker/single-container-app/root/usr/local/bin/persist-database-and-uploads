@@ -47,6 +47,8 @@ case "${choice}" in
         set -e
         echo "Stopping MariaDB..."
         sv down mariadb
+        echo "Waiting for 5 seconds..."
+        sleep 5
         echo "Moving database and uploads to /workspaces..."
         mv /var/lib/mysql /workspaces/mysql
         mv /wp/wp-content/uploads /workspaces/uploads
