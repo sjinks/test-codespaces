@@ -3,8 +3,28 @@
 set -eu
 exec 2>&1
 
-# /var/lib/mysql can be a volume
-/usr/bin/install -d -D -m 02755 -o mysql -g mysql /var/lib/mysql
+if [ -d /workspaces/mysql ]; then
+    echo "Found /workspaces/mysql"
+    if [ -d /var/lib/mysql ] && [ -z "$(ls -A /var/lib/mysql)" ]; then
+        echo "Found empty /var/lib/mysql directory"
+        if ! mountpoint -q /var/lib/mysql; then
+            echo "/var/lib/mysql is not a mountpoint, restoring"
+            rm -f /var/lib/mysql
+            ln -s /workspaces/mysql /var/lib/mysql
+        else
+            echo "ERROR: /var/lib/mysql is a mountpoint"
+            exit 1
+        fi
+    else
+        echo "ERROR: /var/lib/mysql is not empty or not a directory"
+        exit 1
+    fi
+    /usr/bin/install -d -m 02755 -o mysql -g mysql /workspaces/mysql
+else
+    # /var/lib/mysql can be a volume
+    /usr/bin/install -d -D -m 02755 -o mysql -g mysql /var/lib/mysql
+fi
+
 /usr/bin/install -d /run/mysqld -o mysql -g mysql
 
 if [ ! -d /var/lib/mysql/mysql ]; then

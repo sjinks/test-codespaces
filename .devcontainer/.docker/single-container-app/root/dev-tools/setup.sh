@@ -16,10 +16,26 @@ if [ -n "${CODESPACE_NAME}" ]; then
   multisite_type="subdirectories"
 fi
 
-sudo chown www-data:www-data /wp/config
-if [ -d /wp/wp-content/uploads ]; then
+if [ -d /workspaces/uploads ]; then
+  echo "Found /workspaces/uploads"
+  if [ ! -e /wp/wp-content/uploads ] || { [ -d /wp/wp-content/uploads ] && [ -z "$(ls -A /wp/wp-content/uploads)" ]; }; then
+    echo "/wp/wp-content/uploads does not exist or is an empty directory"
+    if ! mountpoint -q /wp/wp-content/uploads; then
+      echo "/wp/wp-content/uploads is not a mountpoint, restoring"
+      rm -f /wp/wp-content/uploads
+      ln -s /workspaces/uploads /wp/wp-content/uploads
+    else
+      echo "WARNING: /wp/wp-content/uploads is a mountpoint, NOT restoring"
+    fi
+  else
+    echo "WARNING: /wp/wp-content/uploads is not empty or not a directory"
+    exit 1
+  fi
+elif [ -d /wp/wp-content/uploads ]; then
   sudo chown www-data:www-data /wp/wp-content/uploads
 fi
+
+sudo chown www-data:www-data /wp/config
 
 sed -e "s/%DB_HOST%/$db_host/" /dev-tools/wp-config.php.tpl > /wp/config/wp-config.php
 if [ -n "$multisite_domain" ]; then
