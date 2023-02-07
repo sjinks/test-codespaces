@@ -2,8 +2,9 @@ FROM alpine:3.16
 
 RUN \
     echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk add --no-cache runit nginx gettext ca-certificates curl tar xz openssl less bash su-exec git jq icu-data-full \
+    apk add --no-cache runit nginx gettext ca-certificates curl tar xz openssl less bash su-exec jq icu-data-full \
         mariadb mariadb-client \
+        git openssh-client gpg \
         php8 php8-fpm php8-pear \
         php8-pecl-apcu \
         php8-bcmath \
