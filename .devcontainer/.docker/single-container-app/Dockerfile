@@ -90,7 +90,7 @@ ENV WP_CLI_CONFIG_PATH /etc/wp-cli/wp-cli.yaml
 RUN cp /dev-tools/dev-env-plugin.php /wp/wp-content/mu-plugins/
 
 WORKDIR /wp
-# This does not work nicely with Codespaces - we cannot replace hese directories with symlinks
+# This does not work nicely with Codespaces - we cannot replace these directories with symlinks
 # VOLUME ["/wp/wp-content/uploads", "/var/lib/mysql"]
 EXPOSE 80
 ENTRYPOINT ["/sbin/runsvdir", "-P", "/etc/service"]
