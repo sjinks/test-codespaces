@@ -11,8 +11,7 @@ if [ -d /workspaces/mysql ]; then
             echo "/var/lib/mysql is not a mountpoint, restoring"
             rmdir /var/lib/mysql
             ln -s /workspaces/mysql /var/lib/mysql
-            /usr/bin/install -d -m 02755 -o mysql -g mysql /workspaces/mysql
-            chown -R mysql:mysql /workspaces/mysql
+            /usr/bin/install -d -m 02755 -o www-data -g www-data /workspaces/mysql
         else
             echo "ERROR: /var/lib/mysql is a mountpoint"
             exit 1
@@ -23,16 +22,16 @@ if [ -d /workspaces/mysql ]; then
         echo "ERROR: /var/lib/mysql is not empty or not a directory"
         exit 1
     fi
-    
+    chown -R www-data:www-data /workspaces/mysql
 else
     # /var/lib/mysql can be a volume
-    /usr/bin/install -d -D -m 02755 -o mysql -g mysql /var/lib/mysql
+    /usr/bin/install -d -D -m 02755 -o www-data -g www-data /var/lib/mysql
 fi
 
-/usr/bin/install -d /run/mysqld -o mysql -g mysql
+/usr/bin/install -d /run/mysqld -o www-data -g www-data
 
 if [ ! -d /var/lib/mysql/mysql ]; then
-    /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=mysql --datadir=/var/lib/mysql
+    /usr/bin/mysql_install_db --auth-root-authentication-method=normal --skip-test-db --user=www-data --datadir=/var/lib/mysql
 fi
 
-exec /sbin/su-exec mysql /usr/bin/mysqld --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION --max_allowed_packet=67M --skip_networking=0 --bind-address=127.0.0.1
+exec /sbin/su-exec www-data /usr/bin/mysqld --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION --max_allowed_packet=67M --skip_networking=0 --bind-address=127.0.0.1
