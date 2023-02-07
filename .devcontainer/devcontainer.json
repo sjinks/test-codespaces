@@ -65,7 +65,7 @@
     "updateContentCommand": "cd /workspaces/${localWorkspaceFolderBasename} && composer install || true",
     "postCreateCommand": "/usr/local/bin/setup.sh",
     "remoteUser": "www-data",
-    // "mounts": [
+    "mounts": [
     //     {
     //         "type": "volume",
     //         "source": "wp-uploads",
@@ -76,7 +76,37 @@
     //         "source": "database",
     //         "target": "/var/lib/mysql"
     //     }
-    // ],
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/client-mu-plugins",
+            "target": "/wp/wp-content/client-mu-plugins"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/images",
+            "target": "/wp/wp-content/images"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/languages",
+            "target": "/wp/wp-content/languages"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/plugins",
+            "target": "/wp/wp-content/plugins"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/themes",
+            "target": "/wp/wp-content/themes"
+        },
+        {
+            "type": "bind",
+            "source": "${localWorkspaceFolder}/vip-config",
+            "target": "/wp/wp-content/vip-config"
+        }
+    ],
     "runArgs": [
         "-l", "traefik.enable=true",
         "-l", "traefik.http.routers.${devcontainerId}.rule=HostRegexp(`${localWorkspaceFolderBasename}.lndo.site`, `{wildcard:[a-z0-9-]+}.${localWorkspaceFolderBasename}.lndo.site`)",
