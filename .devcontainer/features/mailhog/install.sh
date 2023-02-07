@@ -2,6 +2,11 @@
 
 set -ex
 
+if [ "$(id -u)" -ne 0 ]; then
+    echo -e 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
+    exit 1
+fi
+
 if [ "${ENABLED}" = "true" ]; then
     if [ "$(arch)" = "arm64" ]; then
         wget -q https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_arm -O /usr/local/bin/mailhog
